@@ -1,36 +1,36 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema({
-    name:{
+var userSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
+        default: ''
     },
-    email:{
+    email: {
         type: String,
         required: true,
+        unique: true,
+        default: ''
     },
-    password:{
+    password: {
         type: String,
         required: true,
-        default:''
+        default: '',
+        select: false
     },
-    password:{
-        type: String,
-        required: true,
-        default:'',
-        select:false
-    },
-    tasklist:[{
+    taskList: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Task'
+        ref: 'Task'
     }],
-})
+});
 
-userSchema.methods.generateHash = function(password){
-    return bycrpt.hashSync(password, bycrpt.genSaltSync(8), null)
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
-userSchema.methods.validPassword = function(password){
-    return bycrpt.hashSync(password, this.password);
+
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 }
+
 module.exports = mongoose.model('User', userSchema);
