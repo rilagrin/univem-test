@@ -7,7 +7,7 @@ const app = express();
 
 // Persistência
 mongoose.connect(
-	'mongodb+srv://poloAdmin:oys3lz80ZLfd2R4j@cluster0.8e7wu.mongodb.net/test',
+	'mongodb+srv://poloAdmin:<password>@cluster0.8e7wu.mongodb.net/test',
 	{ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }
 );
 
